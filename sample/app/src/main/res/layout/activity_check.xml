@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_bg"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    tools:context=".CheckActivity">
+
+
+
+    <TextView
+        android:id="@+id/tvCheckDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Enter the Survey ID below and click the 'Check if Answered' button to check if the survey has been answered on the current device."
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etSurveyId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_corner_12"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckDesc" />
+
+    <Button
+        android:id="@+id/btnCheckAnswered"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_background_ripple"
+        android:text="Check if Answered"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSurveyId" />
+
+    <ImageView
+        android:id="@+id/ivErrorIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCheckAnswered"
+        android:src="@drawable/baseline_error_outline_24"/>
+
+    <TextView
+        android:id="@+id/tvCheckResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivErrorIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:layout_marginStart="8dp"
+        app:layout_goneMarginStart="0dp"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnCheckAnswered"
+        android:textSize="13sp"
+        tools:text="This survey has already been answered on this device. Please Reset Device UDID to make the survey eligible to show again on this device." />
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/darker_gray"
+        app:layout_goneMarginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckResult" />
+
+    <TextView
+        android:id="@+id/tvResetTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Reset Device UDID"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vDivider" />
+
+    <TextView
+        android:id="@+id/tvResetDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="If the survey has already been answered, click the 'Reset Device UDID' button to make the survey eligible to show again on this device."
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvResetTitle" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_background_ripple"
+        android:text="Reset Device UDID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvResetDesc" />
+
+    <TextView
+        android:id="@+id/tvResetResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnReset"
+        android:text="Device UDID has been reset. Please return to the Home page to trigger a survey."/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

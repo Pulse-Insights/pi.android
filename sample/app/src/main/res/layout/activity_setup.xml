@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_bg"
+    tools:context=".SetupActivity">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="56dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Pulse Insights Demo App"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:paddingHorizontal="20dp"
+        android:text="This app enables you to trigger &amp; test surveys in a native app environment."
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvInputTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Get started by entering an Account ID below:"
+        android:textColor="@color/pink"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/etAccountId"
+        app:layout_constraintStart_toStartOf="@id/etAccountId"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitle" />
+
+    <EditText
+        android:id="@+id/etAccountId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner_12"
+        android:paddingHorizontal="12dp"
+        android:maxLines="1"
+        android:maxLength="12"
+        android:paddingVertical="12dp"
+        android:hint="PI-XXXXXXXX"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvInputTitle" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_background_ripple"
+        android:text="Save Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAccountId" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inlineDescriptionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:paddingVertical="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tvDesc01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:text="Account ID can be found in the Pulse Insights Console, or in your tag integration guide."
+            android:textColor="@color/white"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@id/inlineDescriptionContainer"
+            app:layout_constraintStart_toStartOf="@id/inlineDescriptionContainer"
+            app:layout_constraintTop_toTopOf="@id/inlineDescriptionContainer" />
+
+        <TextView
+            android:id="@+id/tvDesc02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="16dp"
+            android:text="The Account ID starts with PI-followed by a 8 numbers. \n E.g. PI-99999999"
+            android:textColor="@color/white"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@id/inlineDescriptionContainer"
+            app:layout_constraintStart_toStartOf="@id/inlineDescriptionContainer"
+            app:layout_constraintTop_toBottomOf="@id/tvDesc01" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

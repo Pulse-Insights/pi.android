@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Pulse Insights</string>
+    <string name="title_welcome">Welcome!</string>
+    <string name="content_config">Seems like you haven\'t configured your Pulse Insights account. Do you want to set it up now?</string>
+    <string name="account_id">Account ID</string>
+    <string name="client_key">Client Key</string>
+    <string name="survey_id">Survey ID</string>
+    <string name="answered_check">Check if answered</string>
+    <string name="setup">Setup</string>
+    <string name="save">Save</string>
+    <string name="reset_device_udid">Reset device UDID</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="previous_activity">Previous Activity</string>
+    <string name="next_activity">Next Activity</string>
+    <string name="post_device">Device Data</string>
+    <string name="the_displayed_class_is">The displayed view name is:</string>
+</resources>
