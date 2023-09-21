@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
 }
 
 android {
@@ -8,7 +8,6 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "com.pulseinsights.surveysdk"
         minSdk 23
         targetSdk 33
         versionCode 1
