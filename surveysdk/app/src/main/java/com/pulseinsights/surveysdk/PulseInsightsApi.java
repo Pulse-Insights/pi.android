@@ -61,8 +61,6 @@ public class PulseInsightsApi {
         requestParams.put("launch_times",
                 String.valueOf(PreferencesManager.getInstance(context).getLaunchCount()));
         requestParams.put("view_name", LocalData.instant.strViewName);
-        requestParams.put("callback", "");
-
         return requestParams;
     }
 
@@ -127,7 +125,6 @@ public class PulseInsightsApi {
         requestParams.put("identifier", LocalData.instant.strAccountId);
         requestParams.put("question_id", strQuestionId);
         requestParams.put(strQidTagName, strPostAnswers);
-        requestParams.put("callback", "");
 
         String domainSuffix = String.format("submissions/%s/answer", LocalData.instant.strSubmitId);
 
@@ -163,7 +160,6 @@ public class PulseInsightsApi {
 
     public void postClose() {
         Map<String, String> requestParams = new HashMap<>();
-        requestParams.put("callback", "");
         String domainSuffix = String.format("submissions/%s/close", LocalData.instant.strSubmitId);
         String strRequestUrl = httpCore.composeRequestUrl(domainSuffix, requestParams);
         httpCore.startRequest(strRequestUrl, Define.SURVEY_REQ_TYPE_CLOSE);
@@ -172,7 +168,6 @@ public class PulseInsightsApi {
     public void getQuestionDetail() {
         Map<String, String> requestParams = new HashMap<>();
         requestParams.put("identifier", LocalData.instant.strAccountId);
-        requestParams.put("callback", "");
         String domainSuffix =
                 String.format("surveys/%s/questions", LocalData.instant.strCheckingSurveyId);
         String strRequestUrl = httpCore.composeRequestUrl(domainSuffix, requestParams);
