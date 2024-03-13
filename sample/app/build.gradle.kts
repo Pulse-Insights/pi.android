@@ -1,3 +1,5 @@
+import java.util.Date
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -11,8 +13,8 @@ android {
         applicationId = "com.pulseinsights.surveysdkexample"
         minSdk = 23
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = getTimestamp()
+        versionName = "3.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,7 +40,6 @@ android {
         create("stag") {
             dimension = "version"
             applicationIdSuffix = ".stag"
-            versionNameSuffix = "-stag"
         }
         create("prod") {
             dimension = "version"
@@ -63,4 +64,8 @@ dependencies {
     //    Switch-enable the following two lines when test-deployed-sdk/test-local
 //    implementation("com.pulseinsights:android-sdk:2.3.0")
     implementation(project(mapOf("path" to ":surveysdk")))
+}
+
+fun getTimestamp(): Int {
+    return Date().time.toInt()
 }
