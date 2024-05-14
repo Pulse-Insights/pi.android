@@ -16,5 +16,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "SurveySDKExample"
-include ':app'
-include ':surveysdk'
+include ':app', ':surveysdk'
+project(':surveysdk').projectDir = new File(settingsDir, '../surveysdk')
