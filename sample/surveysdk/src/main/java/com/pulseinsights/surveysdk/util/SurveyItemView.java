@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by leochao on 2018/2/22.
+ * Created by shenlong on 2024/04/24.
  */
 
-public class SurveyMainView extends RelativeLayout {
+public class SurveyItemView extends RelativeLayout {
     Context context;
     View layout;
     TextView piPageTitle;
@@ -69,21 +70,35 @@ public class SurveyMainView extends RelativeLayout {
     PulseInsights pulseInsights;
     SurveyViewResult surveyViewResult;
     ImageView surveyIcon;
+    TextView tvError;
 
     boolean inlineEnable = false;
     boolean inlineType = false;
     String trackIdentify = "";
 
+    private boolean showCloseBtn = false;
+    private OnAnswerSelectedListener onAnswerSelectedListener;
+
+    public void setOnAnswerSelectedListener(OnAnswerSelectedListener listener) {
+        this.onAnswerSelectedListener = listener;
+    }
+
     public void switchInlineType(boolean enable) {
         inlineType = enable;
     }
 
-    public SurveyMainView(Context context) {
+    public SurveyItemView(Context context) {
         super(context);
         init(context);
     }
 
-    public SurveyMainView(Context context, AttributeSet attrs) {
+    public SurveyItemView(Context context, Boolean showCloseBtn) {
+        super(context);
+        this.showCloseBtn = showCloseBtn;
+        init(context);
+    }
+
+    public SurveyItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
@@ -94,7 +109,7 @@ public class SurveyMainView extends RelativeLayout {
         pulseInsightsApi = new PulseInsightsApi(this.context);
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layout = layoutInflater.inflate(R.layout.pulse_insight_survey_main, this);
+        layout = layoutInflater.inflate(R.layout.pulse_insight_survey_item, this);
 
         innerInviteView = layout.findViewById(R.id.inner_invite);
         inviteTextContainer = layout.findViewById(R.id.invite_msg_container);
@@ -149,14 +164,12 @@ public class SurveyMainView extends RelativeLayout {
         closeSymbol = layout.findViewById(R.id.close_symbol);
         closeSymbol.setTextColor(
                 Color.parseColor(LocalData.instant.themeStyles.closeBtn.fontColor));
+        tvError = layout.findViewById(R.id.tvError);
+        LocalData.instant.themeStyles.questionError.configText(tvError);
         btnClose = layout.findViewById(R.id.btn_close);
         LocalData.instant.themeStyles.closeBtn.setBtnContainer(context, btnClose);
-        btnClose.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnClose.setVisibility(showCloseBtn ? VISIBLE : GONE);
+        btnClose.setOnClickListener(v -> finish());
         hideAllArea();
     }
 
@@ -359,6 +372,7 @@ public class SurveyMainView extends RelativeLayout {
         piContentCustom.setVisibility(GONE);
         piPollResult.setVisibility(GONE);
         piAreaSubmit.setVisibility(GONE);
+        titleContainer.setVisibility(VISIBLE);
         piPageTitle.setVisibility(VISIBLE);
         piContentText.setOnChangeListener(null);
         piContentChoiceMultiple.setOnChangeListener(null);
@@ -367,6 +381,8 @@ public class SurveyMainView extends RelativeLayout {
         final String strQuizType = switchItem.questionType;
         final String strNextId = switchItem.nextQuestionId;
 
+
+        piPageTitle.setText(switchItem.content);
         String beforeHelper = switchItem.beforeHelper;
         String afterHelper = switchItem.afterHelper;
 
@@ -393,16 +409,9 @@ public class SurveyMainView extends RelativeLayout {
             piContentChoiceSingle.setInitialSet(switchItem, new SurveyFlowResult() {
                 @Override
                 public void result(String strAnswer, final String strNextDirection) {
-                    pulseInsightsApi.postAnswers(
-                            strAnswer,
-                            strQuizId,
-                            strQuizType,
-                            new EventListener() {
-                                @Override
-                                public void onEvent(Object result) {
-                                    goNext(strNextDirection);
-                                }
-                            });
+                    if (onAnswerSelectedListener != null) {
+                        onAnswerSelectedListener.onAnswerSelected(strAnswer);
+                    }
                 }
             });
         } else if (switchItem.questionType.equalsIgnoreCase("multiple_choices_question")) {
@@ -423,13 +432,9 @@ public class SurveyMainView extends RelativeLayout {
                     if (piContentChoiceMultiple.clearToSubmit()) {
                         String strGatherAnswers = piContentChoiceMultiple.getMultiAnswer();
                         final String optionNext = piContentChoiceMultiple.multiOptionNext;
-                        pulseInsightsApi.postAnswers(strGatherAnswers, strQuizId,
-                                strQuizType, new EventListener() {
-                                    @Override
-                                    public void onEvent(Object result) {
-                                        goNext(optionNext.isEmpty() ? strNextId : optionNext);
-                                    }
-                                });
+                        if (onAnswerSelectedListener != null) {
+                            onAnswerSelectedListener.onAnswerSelected(strGatherAnswers);
+                        }
                     }
                 }
             });
@@ -437,12 +442,16 @@ public class SurveyMainView extends RelativeLayout {
             piContentText.setVisibility(VISIBLE);
             piContentText.setHintText(switchItem.hintText);
             piContentText.setMaxTextLength(switchItem.maxTextLength);
-            piAreaSubmit.setVisibility(VISIBLE);
+            piAreaSubmit.setVisibility(GONE);
             configSubmitButton(piContentText.clearToSubmit());
             piContentText.setOnChangeListener(new AnswerOnChange() {
                 @Override
                 public void onChange() {
-                    configSubmitButton(piContentText.clearToSubmit());
+//                    configSubmitButton(piContentText.clearToSubmit());
+                    if (onAnswerSelectedListener != null) {
+
+                        onAnswerSelectedListener.onAnswerSelected(piContentText.getInputAnswer());
+                    }
                 }
             });
             //2016-12-07
@@ -452,24 +461,6 @@ public class SurveyMainView extends RelativeLayout {
             //Confirmed that we should applied Html format in every where of this survey
             FormatSetTool.setTextByHtml(btnSubmitTxt, switchItem.submitLabel);
 
-            btnSubmit.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String readyText = piContentText.getInputAnswer();
-                    if (piContentText.clearToSubmit()) {
-                        InputMethodManager imm = (InputMethodManager) context
-                                .getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                        pulseInsightsApi.postAnswers(readyText, strQuizId, strQuizType,
-                                new EventListener() {
-                                    @Override
-                                    public void onEvent(Object result) {
-                                    }
-                                });
-                        goNext(strNextId);
-                    }
-                }
-            });
         } else if (switchItem.questionType.equalsIgnoreCase("custom_content_question")) {
             piContentCustom.setVisibility(VISIBLE);
             piPageTitle.setVisibility(INVISIBLE);
@@ -485,7 +476,10 @@ public class SurveyMainView extends RelativeLayout {
                     new SurveyFlowResult() {
                         @Override
                         public void result(String strAnswer, String strNextDirection) {
-                            goNext("");
+//                            goNext("");
+                            if (onAnswerSelectedListener != null) {
+                                onAnswerSelectedListener.onAnswerSelected(strAnswer);
+                            }
                         }
                     });
         }
@@ -540,5 +534,10 @@ public class SurveyMainView extends RelativeLayout {
             }
             helperContainer.addView(tv);
         }
+    }
+
+    public void showError(String error) {
+        tvError.setText(error);
+        tvError.setVisibility(TextUtils.isEmpty(error) ? GONE : VISIBLE);
     }
 }

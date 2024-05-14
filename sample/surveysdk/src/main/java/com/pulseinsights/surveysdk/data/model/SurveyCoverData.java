@@ -33,6 +33,18 @@ public class SurveyCoverData {
     @SerializedName("sdk_inline_target_selector")
     String inlineTrackId = "";
 
+    @SerializedName("display_all_questions")
+    String displayAllQuestions = "f";
+
+    @SerializedName("all_at_once_empty_error_enabled")
+    String allAtOnceEmptyErrorEnabled = "f";
+
+    @SerializedName("all_at_once_submit_label")
+    String allAtOnceSubmitLabel = "";
+
+    @SerializedName("all_at_once_error_text")
+    String allAtOnceErrorText = "";
+
     @SerializedName("theme_native")
     RemoteThemeData themeNative = new RemoteThemeData();
 
@@ -64,6 +76,11 @@ public class SurveyCoverData {
         surveyCover.inlineTrackId = new ParseHelper<String>().getObj(inlineTrackId, "");
         LocalData.instant.themeStyles.updateAssignTheme(
                 themeNative != null ? themeNative : new RemoteThemeData());
+
+        surveyCover.displayAllQuestions = displayAllQuestions.equalsIgnoreCase("t");
+        surveyCover.allAtOnceEmptyErrorEnabled = allAtOnceEmptyErrorEnabled.equalsIgnoreCase("t");
+        surveyCover.allAtOnceSubmitLabel = new ParseHelper<String>().getObj(allAtOnceSubmitLabel, "");
+        surveyCover.allAtOnceErrorText = new ParseHelper<String>().getObj(allAtOnceErrorText, "");
         return surveyCover;
     }
 }

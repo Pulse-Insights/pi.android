@@ -1,4 +1,4 @@
-import java.util.Date
+import java.io.ByteArrayOutputStream
 
 plugins {
     id("com.android.application")
@@ -13,7 +13,7 @@ android {
         applicationId = "com.pulseinsights.surveysdkexample"
         minSdk = 23
         targetSdk = 33
-        versionCode = getTimestamp()
+        versionCode = getVersionCode()
         versionName = "3.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -66,6 +66,11 @@ dependencies {
     implementation(project(mapOf("path" to ":surveysdk")))
 }
 
-fun getTimestamp(): Int {
-    return Date().time.toInt()
+fun getVersionCode(): Int {
+    val output = ByteArrayOutputStream()
+    exec {
+        commandLine = listOf("git", "rev-list", "--count", "HEAD")
+        standardOutput = output
+    }
+    return output.toString().trim().toInt()
 }

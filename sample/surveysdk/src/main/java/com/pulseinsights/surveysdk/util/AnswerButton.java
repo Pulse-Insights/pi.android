@@ -38,6 +38,8 @@ public class AnswerButton extends RelativeLayout {
     boolean isItemFunctionEnable = true;
     int horizontalWidth = 0;
 
+    private boolean shouldSetSelectedColor = false;
+
     public AnswerButton(Context context, boolean isSingleType, int horizontalWidth) {
         super(context);
         this.isSingleType = isSingleType;
@@ -156,6 +158,10 @@ public class AnswerButton extends RelativeLayout {
         }
     }
 
+    public void setShouldSetSelectedColor(boolean shouldSetSelectedColor) {
+        this.shouldSetSelectedColor = shouldSetSelectedColor;
+    }
+
     public void setItemEnable(boolean setEnable) {
         isItemFunctionEnable = setEnable;
     }
@@ -181,6 +187,19 @@ public class AnswerButton extends RelativeLayout {
         isOnStatus = isOn;
         markSymbol.setVisibility((isSingleType || !isOn) ? View.INVISIBLE : View.VISIBLE);
         refreshCheckBox();
+
+        if (shouldSetSelectedColor) {
+            if (isOnStatus) {
+                // Set the selected background color when the button is selected
+                this.setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable(LocalData.instant.themeStyles.ansBtn.selectedBackgroundColor));
+                mainContainer.setBackgroundColor(Color.parseColor(LocalData.instant.themeStyles.ansBtn.selectedBackgroundColor));
+            } else {
+                // Set the default background color when the button is not selected
+                this.setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable());
+                mainContainer.setBackgroundColor(Color.parseColor(LocalData.instant.themeStyles.ansBtn.backgroundColor));
+            }
+        }
+
         if (needCallBack && infCusSwitchBtn != null) {
             infCusSwitchBtn.changeResult(isOnStatus, this.getId());
         }
@@ -214,7 +233,9 @@ public class AnswerButton extends RelativeLayout {
             if (isItemFunctionEnable) {
                 isOnStatus = !isOnStatus;
                 changeBtnStatus(isOnStatus, true);
-                configDefaultStyle();
+                if (!shouldSetSelectedColor) {
+                    configDefaultStyle();
+                }
             }
         }
     };

@@ -15,8 +15,11 @@ public class AnswerBtnTheme extends BtnThemeBase {
     public String tabEffectBorderColor = "#000000";
     public String perRowBackgroundColor = "#BABABA";
 
+    public String selectedBackgroundColor = "#FFFFFF";
+
     public AnswerBtnTheme() {
         backgroundColor = "#FFFFFF";
+        selectedBackgroundColor = "#FFFFFF";
         borderColor = "#858585";
         borderWidth = 3;
         width = 0;
@@ -28,6 +31,7 @@ public class AnswerBtnTheme extends BtnThemeBase {
 
     public void applyNewStyle(AnswerBtnTheme newStyle) {
         this.backgroundColor = newStyle.backgroundColor;
+        this.selectedBackgroundColor = newStyle.selectedBackgroundColor;
         this.fontColor = newStyle.fontColor;
         this.borderColor = newStyle.borderColor;
         this.borderWidth = newStyle.borderWidth;

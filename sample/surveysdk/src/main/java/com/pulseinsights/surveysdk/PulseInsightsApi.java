@@ -2,6 +2,7 @@ package com.pulseinsights.surveysdk;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.pulseinsights.surveysdk.data.model.PollResult;
 import com.pulseinsights.surveysdk.data.model.SurveyTicket;
 import com.pulseinsights.surveysdk.jsontool.HttpCore;
@@ -10,6 +11,8 @@ import com.pulseinsights.surveysdk.jsontool.JsonGetResult;
 import com.pulseinsights.surveysdk.util.DebugTool;
 import com.pulseinsights.surveysdk.util.EventListener;
 import com.pulseinsights.surveysdk.util.PreferencesManager;
+import com.pulseinsights.surveysdk.util.SurveyAnswer;
+import com.pulseinsights.surveysdk.util.SurveyAnswers;
 import com.pulseinsights.surveysdk.util.SurveyFlowResult;
 
 import java.util.ArrayList;
@@ -130,6 +133,25 @@ public class PulseInsightsApi {
 
         String strRequestUrl = httpCore.composeRequestUrl(domainSuffix, requestParams);
 
+        httpCore.startRequest(strRequestUrl, Define.SURVEY_REQ_TYPE_SENDANSWER);
+    }
+
+    public void postAllAtOnce(SurveyAnswers answers, EventListener callback) {
+        this.callback = callback;
+
+
+        // Convert the answers to a JSON string
+        Gson gson = new Gson();
+        String jsonAnswers = gson.toJson(answers.getAnswers());
+        // Prepare the request parameters
+        Map<String, String> requestParams = new HashMap<>();
+        requestParams.put("identifier", LocalData.instant.strAccountId);
+        requestParams.put("answers", jsonAnswers);
+        // Construct the URL for the HTTP request
+        String domainSuffix = String.format("submissions/%s/all_answers", LocalData.instant.strSubmitId);
+        String strRequestUrl = httpCore.composeRequestUrl(domainSuffix, requestParams);
+
+        // Start the HTTP request
         httpCore.startRequest(strRequestUrl, Define.SURVEY_REQ_TYPE_SENDANSWER);
     }
 

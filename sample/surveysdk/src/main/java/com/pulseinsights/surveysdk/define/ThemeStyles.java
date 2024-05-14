@@ -17,6 +17,7 @@ public class ThemeStyles {
     public BrandTheme brand = new BrandTheme();
     public InviteTextTheme invite = new InviteTextTheme();
     public QuestionTextTheme question = new QuestionTextTheme();
+    public QuestionErrorTextTheme questionError = new QuestionErrorTextTheme();
     public SurveyImageTheme surveyImg = new SurveyImageTheme();
     public ResponseImageTheme ansImg = new ResponseImageTheme();
     public PollBarTheme pollBar = new PollBarTheme();
@@ -51,6 +52,8 @@ public class ThemeStyles {
                 fetchStyle.invite != null ? fetchStyle.invite.toTheme() : new InviteTextTheme());
         question.applyNewStyle(fetchStyle.question != null
                 ? fetchStyle.question.toTheme() : new QuestionTextTheme());
+        questionError.applyNewStyle(fetchStyle.questionError != null
+                ? fetchStyle.questionError.toTheme() : new QuestionErrorTextTheme());
         surveyImg.applyNewStyle(fetchStyle.surveyImg != null
                 ? fetchStyle.surveyImg.toTheme(new SurveyImageTheme()) : new SurveyImageTheme());
         ansImg.applyNewStyle(fetchStyle.ansImg != null

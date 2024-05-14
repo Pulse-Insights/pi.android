@@ -12,6 +12,8 @@ public class SurveyTicket {
     public String submitLabel = "";
     public String maximumSelection = "";
     public String hintText = "";
+    public boolean optional = false;
+    public String emptyError = "";
     public int maxTextLength = 0;
     public int answersPerRow = 1;
     public String nextQuestionId = "";

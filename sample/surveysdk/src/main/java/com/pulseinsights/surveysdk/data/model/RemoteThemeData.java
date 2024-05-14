@@ -42,6 +42,9 @@ public class RemoteThemeData {
     @SerializedName("question-text")
     public QuestionTextStyle question = null;
 
+    @SerializedName("question-error-text")
+    public QuestionErrorTextStyle questionError = null;
+
     @SerializedName("answers-helper")
     public HelperStyle helper = null;
 

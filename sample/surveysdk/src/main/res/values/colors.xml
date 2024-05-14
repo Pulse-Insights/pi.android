@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="input_hint">#808080</color>
+    <color name="pink">#b24b8f</color>
 </resources>

@@ -9,6 +9,9 @@ public class AnswerBtnStyle {
     @SerializedName("background-color")
     String backgroundColor = null;
 
+    @SerializedName("background-color-selected")
+    String backgroundColorSelected = null;
+
     @SerializedName("border-color")
     String borderColor = null;
 
@@ -48,6 +51,8 @@ public class AnswerBtnStyle {
         AnswerBtnTheme answerBtnTheme = new AnswerBtnTheme();
         answerBtnTheme.backgroundColor =
                 new ParseHelper<String>().getObj(backgroundColor, answerBtnTheme.backgroundColor);
+        answerBtnTheme.selectedBackgroundColor =
+                new ParseHelper<String>().getObj(backgroundColorSelected, answerBtnTheme.selectedBackgroundColor);
         answerBtnTheme.borderColor =
                 new ParseHelper<String>().getObj(borderColor, answerBtnTheme.borderColor);
         answerBtnTheme.borderWidth = borderWidth > -1 ? borderWidth : answerBtnTheme.borderWidth;

@@ -12,4 +12,9 @@ public class SurveyCover {
     public boolean enablePendingStart = false;
     public int pendingStartTime = 0;
     public String inlineTrackId = "";
+
+    public boolean displayAllQuestions = false;
+    public boolean allAtOnceEmptyErrorEnabled = false;
+    public String allAtOnceSubmitLabel = "";
+    public String allAtOnceErrorText = "";
 }

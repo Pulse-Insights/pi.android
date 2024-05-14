@@ -28,6 +28,12 @@ public class SurveyTicketData {
     @SerializedName("button_type")
     int buttonType = 1;
 
+    @SerializedName("optional")
+    String optional = "f";
+
+    @SerializedName("empty_error_text")
+    String emptyError = "";
+
     @SerializedName("answers_per_row_mobile")
     int answersPerRow = 0;
 
@@ -131,6 +137,8 @@ public class SurveyTicketData {
             String[] afterAnswerArray = new Gson().fromJson(afterAnswerItems, String[].class);
             surveyTicket.afterAnswerItems = new ArrayList<>(Arrays.asList(afterAnswerArray));
         }
+        surveyTicket.optional = optional.equalsIgnoreCase("t");
+        surveyTicket.emptyError = new ParseHelper<String>().getObj(emptyError, "");
         return surveyTicket;
     }
 

@@ -1,6 +1,7 @@
 package com.pulseinsights.surveysdk.util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -145,6 +146,7 @@ public class PartChoiceType extends RelativeLayout {
         int inRow = 0;
         for (SelectOption tmpItem : surveyTicket.possibleAnswers) {
             AnswerButton subItem = new AnswerButton(context, typeSingle, columnWidth);
+            subItem.setShouldSetSelectedColor(LocalData.instant.surveyPack.survey.displayAllQuestions);
             subItem.setButtonContent(tmpItem, storeOptions.size());
             subItem.setInitVal(false, new InfCusSwitchBtn() {
                 @Override
