@@ -11,14 +11,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url = uri("https://maven.pkg.github.com/Pulse-Insights/pi.android")
-            credentials {
-                username = githubUser
-                password = githubToken
-            }
+            url "https://pi-sdk.s3.us-east-1.amazonaws.com/android"
         }
     }
 }
 rootProject.name = "SurveySDKExample"
+//include ':app'
 include ':app', ':surveysdk'
 project(':surveysdk').projectDir = new File(settingsDir, '../surveysdk')
