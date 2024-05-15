@@ -11,7 +11,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url "https://pi-sdk.s3.us-east-1.amazonaws.com/android"
+            url = uri("https://maven.pkg.github.com/Pulse-Insights/pi.android")
+            credentials {
+                username = githubUser
+                password = githubToken
+            }
         }
     }
 }

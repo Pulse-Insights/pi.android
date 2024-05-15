@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -28,6 +29,31 @@ android {
     }
 }
 
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.findByName('release')
+
+            groupId = 'com.pulseinsights'
+            artifactId = 'android-sdk'
+            version = '2.4.0'
+
+            artifact("$buildDir/outputs/aar/surveysdk-release.aar")
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Pulse-Insights/pi.android")
+            credentials {
+                username = project.findProperty("githubUser") ?: System.getenv("GITHUB_USER")
+                password = project.findProperty("githubToken") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -38,6 +64,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation ("com.github.bumptech.glide:glide:4.12.0")
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation ("com.google.code.gson:gson:2.8.5")
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 }
