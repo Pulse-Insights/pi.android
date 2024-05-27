@@ -139,6 +139,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:paddingHorizontal="4dp"
+                            android:visibility="gone"
                             android:paddingVertical="2dp">
 
                             <TextView

@@ -48,6 +48,7 @@
                         android:id="@+id/before_helper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        tools:text="before helper"
                         android:textSize="18sp" />
                 </RelativeLayout>
 
@@ -73,6 +74,7 @@
                         android:id="@+id/after_helper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        tools:text="after helper"
                         android:textSize="18sp" />
                 </RelativeLayout>
 

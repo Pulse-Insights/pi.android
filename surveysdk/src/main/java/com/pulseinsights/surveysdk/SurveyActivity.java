@@ -2,6 +2,7 @@ package com.pulseinsights.surveysdk;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -93,13 +94,13 @@ public class SurveyActivity extends Activity {
             public void onClick(View v) {
                 Log.e("SurveyActivity all answers", surveyAnswers.toString());
                 // need to check if any question is not answered
-                LinearLayout questionList = (LinearLayout)allAtOnceLayout.getChildAt(0);
-                if(LocalData.instant.surveyPack.survey.allAtOnceEmptyErrorEnabled) {
+                LinearLayout questionList = (LinearLayout) allAtOnceLayout.getChildAt(0);
+                if (LocalData.instant.surveyPack.survey.allAtOnceEmptyErrorEnabled) {
                     // check each question is optional or not, and if it's not and not answered, show error
                     String error = "";
                     for (int i = 0; i < LocalData.instant.surveyTickets.size(); i++) {
                         SurveyTicket surveyTicket = LocalData.instant.surveyTickets.get(i);
-                        SurveyItemView item = (SurveyItemView)questionList.getChildAt(i);
+                        SurveyItemView item = (SurveyItemView) questionList.getChildAt(i);
                         if (!surveyTicket.optional && !surveyAnswers.isAnswered(surveyTicket.id)) {
                             // show error
                             item.showError(surveyTicket.emptyError);
@@ -111,9 +112,10 @@ public class SurveyActivity extends Activity {
                     if (error.isEmpty()) {
                         postAllAtOnce();
                     }
-                } else if(surveyAnswers.isEmpty()) {
-                    Toast.makeText(SurveyActivity.this, "Please answer at least one question", Toast.LENGTH_SHORT).show();
-                }else {
+                } else if (surveyAnswers.isEmpty()) {
+                    String error = TextUtils.isEmpty(LocalData.instant.surveyPack.survey.allAtOnceErrorText) ? LocalData.instant.surveyPack.survey.allAtOnceErrorText : "Please answer at least one question";
+                    Toast.makeText(SurveyActivity.this, error, Toast.LENGTH_SHORT).show();
+                } else {
                     postAllAtOnce();
                 }
             }

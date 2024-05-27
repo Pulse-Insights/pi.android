@@ -36,4 +36,13 @@ public class SurveyAnswer {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String toString() {
+        return "SurveyAnswer{" +
+                "question_id='" + question_id + '\'' +
+                ", question_type='" + question_type + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }

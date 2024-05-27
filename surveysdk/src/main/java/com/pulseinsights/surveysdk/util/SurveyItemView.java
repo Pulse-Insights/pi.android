@@ -417,12 +417,16 @@ public class SurveyItemView extends RelativeLayout {
         } else if (switchItem.questionType.equalsIgnoreCase("multiple_choices_question")) {
             piContentChoiceMultiple.setVisibility(VISIBLE);
             piContentChoiceMultiple.setInitialSet(switchItem, null);
-            piAreaSubmit.setVisibility(VISIBLE);
+            piAreaSubmit.setVisibility(GONE);
             configSubmitButton(piContentChoiceMultiple.clearToSubmit());
             piContentChoiceMultiple.setOnChangeListener(new AnswerOnChange() {
                 @Override
                 public void onChange() {
-                    configSubmitButton(piContentChoiceMultiple.clearToSubmit());
+//                    configSubmitButton(piContentChoiceMultiple.clearToSubmit());
+                    String strGatherAnswers = piContentChoiceMultiple.getMultiAnswer();
+                    if (onAnswerSelectedListener != null) {
+                        onAnswerSelectedListener.onAnswerSelected(strGatherAnswers);
+                    }
                 }
             });
             btnSubmitTxt.setText(switchItem.submitLabel);
@@ -449,7 +453,6 @@ public class SurveyItemView extends RelativeLayout {
                 public void onChange() {
 //                    configSubmitButton(piContentText.clearToSubmit());
                     if (onAnswerSelectedListener != null) {
-
                         onAnswerSelectedListener.onAnswerSelected(piContentText.getInputAnswer());
                     }
                 }
