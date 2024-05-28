@@ -62,7 +62,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //    Switch-enable the following two lines when test-deployed-sdk/test-local
-//    implementation("com.pulseinsights:android-sdk:2.4.0")
+//    implementation("com.pulseinsights:android-sdk:2.4.1")
     implementation(project(mapOf("path" to ":surveysdk")))
 }
 
