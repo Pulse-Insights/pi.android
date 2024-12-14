@@ -236,6 +236,7 @@ public class PulseInsights {
         pulseInsightsApi.serve();
     }
 
+
     public void setDeviceData(Map<String, String> map) {
         pulseInsightsApi.setDeviceData(map);
     }
@@ -249,7 +250,6 @@ public class PulseInsights {
         LocalData.instant.strCheckingSurveyId = surveyId;
         LocalData.instant.isSurveyApiRunning = true;
         pulseInsightsApi.getSurveyInformation();
-
     }
 
     public void setDebugMode(boolean enable) {
@@ -374,6 +374,7 @@ public class PulseInsights {
                     } else {
                         showInviteWidget(surveyObj);
                     }
+                    pulseInsightsApi.viewedAt();
                 }
             } else {
                 DebugTool.debugPrintln(context, "PI/displaySurvey",

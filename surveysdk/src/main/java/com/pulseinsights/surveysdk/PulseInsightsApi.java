@@ -15,7 +15,9 @@ import com.pulseinsights.surveysdk.util.SurveyAnswer;
 import com.pulseinsights.surveysdk.util.SurveyAnswers;
 import com.pulseinsights.surveysdk.util.SurveyFlowResult;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +104,22 @@ public class PulseInsightsApi {
         String domainSuffix = String.format("surveys/%s", LocalData.instant.strCheckingSurveyId);
         String strRequestUrl = httpCore.composeRequestUrl(domainSuffix, serveStandParamsMap());
         httpCore.startRequest(strRequestUrl, Define.SURVEY_REQ_TYPE_PRESENT);
+    }
 
+    public void viewedAt() {
+        Map<String, String> requestParams = new HashMap<>();
+        requestParams.put("identifier", LocalData.instant.strAccountId);
+
+        // Add the current date-time as the viewed_at parameter
+        String viewedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS Z").format(new Date());
+        requestParams.put("viewed_at", viewedAt);
+
+        // Construct the URL for the HTTP request
+        String domainSuffix = String.format("submissions/%s/viewed_at", LocalData.instant.strSubmitId);
+        String strRequestUrl = httpCore.composeRequestUrl(domainSuffix, requestParams);
+
+        // Start the HTTP request
+        httpCore.startRequest(strRequestUrl, Define.SURVEY_REQ_VIEWED_AT);
     }
 
     private boolean shouldParsePoll = false;
@@ -250,6 +267,8 @@ public class PulseInsightsApi {
                     //TODO: SURVEY_REQ_TYPE_SENDANSWER
                 } else if (strExtend.equalsIgnoreCase(Define.SURVEY_REQ_TYPE_CLOSE)) {
                     //TODO: SURVEY_REQ_TYPE_CLOSE
+                } else if (strExtend.equalsIgnoreCase(Define.SURVEY_REQ_VIEWED_AT)) {
+                    DebugTool.debugPrintln(context, "Viewed at request succeed!");
                 }
                 sendFeedBack(strExtend, "sucess");
             } else {
