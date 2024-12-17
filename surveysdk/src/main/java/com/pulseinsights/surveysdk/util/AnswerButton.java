@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.pulseinsights.surveysdk.LocalData;
 import com.pulseinsights.surveysdk.R;
 import com.pulseinsights.surveysdk.data.model.SelectOption;
@@ -34,7 +36,7 @@ public class AnswerButton extends RelativeLayout {
     ImageView answerImage;
     InfCusSwitchBtn infCusSwitchBtn;
     int setColorVal = Color.parseColor("#FFFFFF");
-    RelativeLayout mainContainer;
+    ConstraintLayout mainContainer;
     boolean isItemFunctionEnable = true;
     int horizontalWidth = 0;
 
@@ -64,7 +66,6 @@ public class AnswerButton extends RelativeLayout {
         layout = layoutInflater.inflate(R.layout.layout_cusbtn, this);
         textLabel = layout.findViewById(R.id.btn_text);
         markSymbol = layout.findViewById(R.id.mark_symbol);
-        labelContainer = layout.findViewById(R.id.label_container);
         answerImage = layout.findViewById(R.id.answer_image);
         markContainer = layout.findViewById(R.id.mark_container);
         refreshCheckBox();
@@ -109,11 +110,17 @@ public class AnswerButton extends RelativeLayout {
         if (horizontalWidth > 0) {
             markContainer.setVisibility(GONE);
         }
+        // need to update textLabel's position, when markContainer is gone, textLabel should be center, otherwise it should be left
+        if (markContainer.getVisibility() == GONE) {
+            textLabel.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        } else {
+            textLabel.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+        }
         DrawableBtnThemeBase btnTheme = isSingleType
                 ? LocalData.instant.themeStyles.radio : LocalData.instant.themeStyles.checkBox;
         if (isSingleType && btnTheme.margin != -100 && horizontalWidth == 0 && mainContainer != null) {
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.bottomMargin = MeasureTools.dip2px(context, btnTheme.margin);
+//            params.bottomMargin = MeasureTools.dip2px(context, btnTheme.margin);
             mainContainer.setLayoutParams(params);
         }
         btnTheme.setupDrawable(context, markContainer, isOnStatus);
@@ -127,7 +134,7 @@ public class AnswerButton extends RelativeLayout {
         int paddingVertical = LocalData.instant.themeStyles.ansBtn.paddingVertical;
         int pxPaddingVertical = paddingVertical > -1 ? MeasureTools.dip2px(context, paddingVertical) : paddingPx;
         this.setPadding(pxPaddingHorizontal, pxPaddingVertical, pxPaddingHorizontal, pxPaddingVertical);
-        markContainer.setPadding(0, 0, paddingPx, 0);
+//        markContainer.setPadding(0, 0, paddingPx, 0);
     }
 
     public void setInitVal(boolean setChecked,
@@ -151,7 +158,6 @@ public class AnswerButton extends RelativeLayout {
         }
         if (useImage) {
             LocalData.instant.themeStyles.ansImg.configImageView(context, answerImage, imgUrl);
-            LocalData.instant.themeStyles.ansImg.configImageContainer(labelContainer);
         } else {
             textLabel.setText(
                     Html.fromHtml(FormatSetTool.transferToHtmlFormat(selectOptionItem.content)));

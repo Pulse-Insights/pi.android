@@ -28,7 +28,7 @@ public class CheckboxTheme extends DrawableBtnThemeBase {
     }
 
     public void setupDrawable(Context context, View view, boolean onState) {
-        GradientDrawable boxShapeDrawable = getItemShape(context, GradientDrawable.OVAL,
+        GradientDrawable boxShapeDrawable = getItemShape(context, GradientDrawable.RECTANGLE,
                 Color.parseColor(backgroundColor), borderWidth,
                 Color.parseColor(borderColor), width, height);
         view.setBackground(boxShapeDrawable);

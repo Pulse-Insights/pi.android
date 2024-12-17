@@ -12,6 +12,7 @@ public class WidgetTheme extends ViewThemeBase {
     public String backgroundColor = "#FFFFFF";
     public String borderColor = "#858585";
     public int borderWidth = 0;
+    public int borderRadius = 36;
 
     public WidgetTheme() {
         padding = 0;
@@ -31,7 +32,12 @@ public class WidgetTheme extends ViewThemeBase {
 
     public GradientDrawable getDrawable() {
         GradientDrawable drawable = new GradientDrawable();
-        drawable.setCornerRadius(0);
+        drawable.setCornerRadii(new float[]{
+                borderRadius, borderRadius, // Top-left corner
+                borderRadius, borderRadius, // Top-right corner
+                0, 0,           // Bottom-right corner
+                0, 0            // Bottom-left corner
+        });
         drawable.setColor(Color.parseColor(backgroundColor));
         drawable.setStroke(borderWidth,
                 Color.parseColor(borderColor));

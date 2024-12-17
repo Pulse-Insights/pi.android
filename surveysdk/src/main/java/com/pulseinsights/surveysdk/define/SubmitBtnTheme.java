@@ -17,11 +17,11 @@ public class SubmitBtnTheme extends BtnThemeBase {
     public String fontColor = "#FFFFFF";
     public String disableFontColor = "#FFFFFF";
     public String horizonAlign = "left";
-    public int borderRadius = 40;
+    public int borderRadius = 12;
 
     public SubmitBtnTheme() {
-        backgroundColor = "#1274B8";
-        borderColor = "#858585";
+        backgroundColor = "#000000";
+        borderColor = "#F1F1F1";
         borderWidth = 0;
         width = 0;
         height = 0;

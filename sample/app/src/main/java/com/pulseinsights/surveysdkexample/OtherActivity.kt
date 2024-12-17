@@ -15,6 +15,7 @@ class OtherActivity : BaseActivity() {
 
         val btnTriggerSurvey = findViewById<Button>(R.id.btnTriggerSurvey)
         btnTriggerSurvey.setOnClickListener {
+//            PulseInsightsApplication.getInstance().getPulseInsights().present("6614")
             PulseInsightsApplication.getInstance().getPulseInsights().serve()
         }
 
