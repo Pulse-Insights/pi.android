@@ -13,6 +13,8 @@ public class Define {
     public static String SURVEY_REQ_TYPE_SENDANSWER = "3";
     public static String SURVEY_REQ_TYPE_CLOSE = "4";
 
+    public static String SURVEY_REQ_VIEWED_AT = "5";
+
     public static int PULSE_INSIGHTS_EVENT_CODE_NORMAL = 0;
     public static int PULSE_INSIGHTS_EVENT_CODE_SURVEY_JUST_CLOSED = 1;
     public static int PULSE_INSIGHTS_EVENT_CODE_ACCOUNT_RESETED = 2;

@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.pulseinsights.surveysdk.LocalData;
 import com.pulseinsights.surveysdk.PulseInsights;
 import com.pulseinsights.surveysdk.PulseInsightsApi;
@@ -50,7 +52,7 @@ public class SurveyMainView extends RelativeLayout {
     PartCustomContentType piContentCustom;
     SurveyPollResult piPollResult;
     RelativeLayout piAreaSubmit;
-    RelativeLayout piThanksArea;
+    ConstraintLayout piThanksArea;
     RelativeLayout btnSubmit;
     RelativeLayout btnClose;
     RelativeLayout logoView;
@@ -64,7 +66,7 @@ public class SurveyMainView extends RelativeLayout {
     LinearLayout piSurveyContent;
     TextView btnSubmitTxt;
     TextView txtThanksMsg;
-    RelativeLayout piSurveyRoot;
+    ConstraintLayout piSurveyRoot;
     PulseInsightsApi pulseInsightsApi;
     PulseInsights pulseInsights;
     SurveyViewResult surveyViewResult;
@@ -250,7 +252,9 @@ public class SurveyMainView extends RelativeLayout {
         String imageUrl = LocalData.instant.surveyPack.survey.background;
         LocalData.instant.themeStyles.surveyImg.configImageView(context, surveyIcon, imageUrl);
         LocalData.instant.themeStyles.surveyImg.configImageContainer(surveyIconContainer);
-
+        if(imageUrl.isEmpty()) {
+            surveyIconContainer.setVisibility(GONE);
+        }
         surveyItemList = new ArrayList<>();
         surveyItemList.addAll(inputItem);
         if (inlineEnable && inlineType && !surveyItemList.isEmpty()) {

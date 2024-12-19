@@ -22,7 +22,7 @@ public class AnswerBtnStyle {
     String fontColor = null;
 
     @SerializedName("tab-effect")
-    Boolean tabEffect = false;
+    Boolean tabEffect = null;
 
     @SerializedName("tab-effect-text-color")
     String tabEffectTextColor = null;

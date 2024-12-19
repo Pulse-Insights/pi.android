@@ -11,15 +11,14 @@ public class AnswerBtnTheme extends BtnThemeBase {
     public String fontColor = "#000000";
     public boolean tabEffect = false;
     public String tabEffectTextColor = "#000000";
-    public String tabEffectBackgroundColor = "#FFFFFF";
+    public String tabEffectBackgroundColor = "#0d0d0f";
     public String tabEffectBorderColor = "#000000";
     public String perRowBackgroundColor = "#BABABA";
 
-    public String selectedBackgroundColor = "#FFFFFF";
-
+    public String selectedBackgroundColor = "#0d0d0f";
     public AnswerBtnTheme() {
         backgroundColor = "#FFFFFF";
-        selectedBackgroundColor = "#FFFFFF";
+        selectedBackgroundColor = "#0d0d0f";
         borderColor = "#858585";
         borderWidth = 3;
         width = 0;
@@ -49,6 +48,7 @@ public class AnswerBtnTheme extends BtnThemeBase {
     }
 
     public GradientDrawable getDrawable() {
+
         return getDrawable(backgroundColor);
     }
 

@@ -5,6 +5,7 @@ import android.view.View;
 
 public abstract class BtnThemeBase extends ViewThemeBase {
     public String backgroundColor = "#FFFFFF";
+    public String pressedBackgroundColor = "#35353b";
     public String disableBackgroundColor = "#BABABA";
     public String borderColor = "#000000";
     public String disableBorderColor = "#BABABA";

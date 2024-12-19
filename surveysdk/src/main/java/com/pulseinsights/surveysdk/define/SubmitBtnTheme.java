@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,11 +18,11 @@ public class SubmitBtnTheme extends BtnThemeBase {
     public String fontColor = "#FFFFFF";
     public String disableFontColor = "#FFFFFF";
     public String horizonAlign = "left";
-    public int borderRadius = 40;
+    public int borderRadius = 12;
 
     public SubmitBtnTheme() {
         backgroundColor = "#1274B8";
-        borderColor = "#858585";
+        borderColor = "#F1F1F1";
         borderWidth = 0;
         width = 0;
         height = 0;
@@ -65,14 +66,24 @@ public class SubmitBtnTheme extends BtnThemeBase {
         this.paddingVertical = newStyle.paddingVertical;
     }
 
-    private GradientDrawable getButtonDrawable(boolean enable) {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setStroke(borderWidth,
-                Color.parseColor(enable ? borderColor : disableBorderColor));
-        drawable.setCornerRadius(borderRadius);
-        drawable.setColor(Color.parseColor(enable ? backgroundColor : disableBackgroundColor));
+    private StateListDrawable getButtonDrawable(boolean enable) {
+        StateListDrawable stateListDrawable = new StateListDrawable();
 
-        return drawable;
+        // Pressed state
+        GradientDrawable pressedDrawable = new GradientDrawable();
+        pressedDrawable.setColor(Color.parseColor(pressedBackgroundColor));
+        pressedDrawable.setCornerRadius(borderRadius);
+        pressedDrawable.setStroke(borderWidth, Color.parseColor(borderColor));
+        stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);
+
+        // Default state
+        GradientDrawable defaultDrawable = new GradientDrawable();
+        defaultDrawable.setColor(Color.parseColor(backgroundColor));
+        defaultDrawable.setCornerRadius(borderRadius);
+        defaultDrawable.setStroke(borderWidth, Color.parseColor(borderColor));
+        stateListDrawable.addState(new int[]{}, defaultDrawable);
+
+        return stateListDrawable;
     }
 
     public void configButtonText(TextView textView) {

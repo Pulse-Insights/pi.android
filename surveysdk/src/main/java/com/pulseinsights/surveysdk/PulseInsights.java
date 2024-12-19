@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.pulseinsights.surveysdk.data.model.SurveyCover;
 import com.pulseinsights.surveysdk.motion.CusShakeDetector;
 import com.pulseinsights.surveysdk.util.DebugTool;
@@ -236,6 +238,7 @@ public class PulseInsights {
         pulseInsightsApi.serve();
     }
 
+
     public void setDeviceData(Map<String, String> map) {
         pulseInsightsApi.setDeviceData(map);
     }
@@ -249,7 +252,6 @@ public class PulseInsights {
         LocalData.instant.strCheckingSurveyId = surveyId;
         LocalData.instant.isSurveyApiRunning = true;
         pulseInsightsApi.getSurveyInformation();
-
     }
 
     public void setDebugMode(boolean enable) {
@@ -374,6 +376,7 @@ public class PulseInsights {
                     } else {
                         showInviteWidget(surveyObj);
                     }
+                    pulseInsightsApi.viewedAt();
                 }
             } else {
                 DebugTool.debugPrintln(context, "PI/displaySurvey",
@@ -384,7 +387,7 @@ public class PulseInsights {
         }
     }
 
-    FrameLayout widgetBody;
+    ConstraintLayout widgetBody;
     TextView widgetMsgTxt;
     RelativeLayout widgetMsgContainer;
     TextView widgetBtnTxt;
@@ -506,6 +509,7 @@ public class PulseInsights {
         }
         LocalData.instant.themeStyles.largeFont.configText(widgetMsgTxt);
         FormatSetTool.setTextByHtml(widgetMsgTxt, surveyObj.invitation);
+        widgetMsgTxt.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         widgetBody = view.findViewById(R.id.widget_body);
         LocalData.instant.themeStyles.widget.configLayout(context, widgetBody);
         final int surveyType = surveyObj.surveyType;
@@ -537,8 +541,14 @@ public class PulseInsights {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 if (isClearDisplay()) {
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    ((Activity) getContext()).getWindowManager()
+                            .getDefaultDisplay().getMetrics(displayMetrics);
+                    view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                    int popupHeight = view.getMeasuredHeight();
+                    int yOffset = displayMetrics.heightPixels - popupHeight;
                     tmpWindow.showAtLocation(rootView,
-                            Gravity.START | Gravity.BOTTOM, 0, 240);
+                            Gravity.START | Gravity.BOTTOM, 0, -location[1]);
                 } else {
                     tmpWindow.dismiss();
                     LocalData.instant.surveyEventCode =

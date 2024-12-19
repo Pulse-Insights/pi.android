@@ -24,7 +24,7 @@ public class SubmitBtnStyle {
     String fontColor = null;
 
     @SerializedName("border-radius")
-    int borderRadius = 0;
+    int borderRadius = -1;
 
     @SerializedName("padding-horizontal")
     int paddingHorizontal = -1;
@@ -58,7 +58,7 @@ public class SubmitBtnStyle {
         submitBtnTheme.margin = margin > -1 ? margin : submitBtnTheme.margin;
         submitBtnTheme.horizonAlign =
                 new ParseHelper<String>().getObj(horizonAlign, submitBtnTheme.horizonAlign);
-        submitBtnTheme.borderRadius = borderRadius;
+        submitBtnTheme.borderRadius = borderRadius > -1 ? borderRadius : submitBtnTheme.borderRadius;
         submitBtnTheme.paddingVertical = paddingVertical > -1 ? paddingVertical : submitBtnTheme.paddingVertical;
         submitBtnTheme.paddingHorizontal = paddingHorizontal > -1 ? paddingHorizontal : submitBtnTheme.paddingHorizontal;
         return submitBtnTheme;

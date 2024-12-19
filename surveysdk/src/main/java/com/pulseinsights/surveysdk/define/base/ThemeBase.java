@@ -32,6 +32,10 @@ public abstract class ThemeBase {
             return Typeface.ITALIC;
         } else if (strType.equalsIgnoreCase("oblique")) {
             return Typeface.ITALIC;
+        } else if (strType.equalsIgnoreCase("bold")) {
+            return Typeface.BOLD;
+        } else if (strType.equalsIgnoreCase("bold_italic")) {
+            return Typeface.BOLD_ITALIC;
         } else {
             return Typeface.NORMAL;
         }
