@@ -72,7 +72,7 @@ project.afterEvaluate {
             deploysdk(MavenPublication) {
                 groupId 'com.pulseinsights'
                 artifactId 'android-sdk'
-                version '2.4.1'
+                version '2.4.2'
 
                 artifact androidSourcesJar
                 artifact(tasks.bundleReleaseAar)
