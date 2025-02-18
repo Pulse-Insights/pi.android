@@ -253,6 +253,10 @@ public class PulseInsights {
         }
     }
 
+    public void clearContextData() {
+        LocalData.instant.customData.clear();
+    }
+
     private void closeSurvey() {
         LocalData.instant.isSurveyApiRunning = true;
         pulseInsightsApi.postClose();
