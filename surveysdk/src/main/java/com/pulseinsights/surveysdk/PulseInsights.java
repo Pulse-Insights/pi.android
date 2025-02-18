@@ -243,6 +243,16 @@ public class PulseInsights {
         pulseInsightsApi.setDeviceData(map);
     }
 
+    public void setContextData(Map<String, String> data, boolean merge) {
+        if (merge) {
+            Map<String, String> currentData = LocalData.instant.customData;
+            currentData.putAll(data);
+            LocalData.instant.customData = currentData;
+        } else {
+            LocalData.instant.customData = data;
+        }
+    }
+
     private void closeSurvey() {
         LocalData.instant.isSurveyApiRunning = true;
         pulseInsightsApi.postClose();
