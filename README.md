@@ -4,10 +4,6 @@
 
 To install PulseInsights on your application, follow those steps:
 
-### Version 1.0.9 or later
-
-> Please go through the [uninstall flow](#remove_1.0.8_or_earilier) if you have installed 1.0.8 or the earilier version
-
 1. Add the `maven repositories target` and the `google repositories target` in the **build.gradle** script of the **project level** as the following example shows, make sure you have **google()** in the top of **repositories** section in the both of **buildscript** and **allprojects**
 ```gradle
 buildscript {
@@ -33,7 +29,7 @@ allprojects {
 ```gradle
 dependencies {
     ...
-    implementation 'com.pulseinsights:android-sdk:1.0.9'
+    implementation 'com.pulseinsights:android-sdk:2.4.4'
 }
 ```
 > You only need to modify this implementation description with the available version name when you want to update the SDK in the future
@@ -46,39 +42,6 @@ dependencies {
       android:name="org.apache.http.legacy"
       android:required="false" />
 ```
-
-### Version 1.0.8 or earilier
-
-1. In your Android Studio IDE, select [File]->[New]->[New Module...]
-2. Select **Import .JAR/.ARR Package**, and then push **Next**
-3. Fill in the .aar library file and the module name which represent the library in your project then press **Finish** button.
-4. Open the **build.gradle** script file of the **app** part, fill in the compile description inside the **dependencies** section, for example, the name you gave in the last step is _pisurveylibrary_, which should become the content as below sample:
-```gradle
-dependencies {
-       compile project(path: ':pisurveylibrary')
-       }
-```
-5. Open the **build.gradle** script file of your project, make sure you have **google()** in the top of **repositories** section of the both of **buildscript** and **allprojects**
-```gradle
-buildscript {
-    repositories {
-        google()
-        ...
-    }
-}
-allprojects {
-    repositories {
-        google()
-        ...
-    }
-    ...
-}
-```
-6. Sync the script file
-7. For upgrading, simply replace the .aar file with the newer version.
-
-Earliest supported Android version: Android 4.4 ( API Level: 19 )
-
 
 ## Usage
 
@@ -300,6 +263,8 @@ PulseInsights pi = new PulseInsights(Context context, String accountId, ExtraCon
 
 ```
 
+You can also use `pi.clearContextData()` to clear all data you added before.
+
 > You can check [this article](#1-extraconfig) for learn more about the `ExtraConfig` class.
 
 ### 11. Device data
@@ -368,22 +333,6 @@ You can apply the additional config with the following sub variables:
 
 ## Uninstall
 
-### Remove 1.0.9 or later
-1. Remove whatever you added when you go through the [install flow](#version-1.0.9-or-later)
+1. Remove whatever you added when you go through the install flow
 2. Sync or rebuild your project
 
-### Remove 1.0.8 or earilier
-
-For remove the library from your project, please follow the steps as below:
-
-1. In the IDE, select [File]->[Project Structure]
-2. Select `Modules` from the left menu and find the library you named when install, select **remove** or **-**, then click **ok** for confirm
-3. Find and remove the following `implementation` statement from the `dependencies` section from the `app level` **build.gradle** script file.
-```gradle
-dependencies {
-    ...
-    implementation project(path: ':pisurveylibrary')
-}
-
-```
-4. Open the project folder, find and delete the sub-folder with the library display name.
