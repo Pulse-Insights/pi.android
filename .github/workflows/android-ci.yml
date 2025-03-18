@@ -18,12 +18,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-
-    - name: Print current directory
-      run: pwd
     
     - name: List files in current directory
       run: ls -la
+    
+    - name: Change to surveysdk directory
+      run: cd sample
     
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
