@@ -22,14 +22,11 @@ jobs:
     - name: List files in current directory
       run: ls -la
     
-    - name: Change to surveysdk directory
+    - name: Change to sample directory
       run: cd sample
-    
-    - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
       
     - name: Run tests
-      run: ./gradlew test
+      run: gradle test
       
     - name: Upload test reports
       if: always()
