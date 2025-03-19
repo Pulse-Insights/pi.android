@@ -19,11 +19,11 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
       
     - name: Run tests in surveysdk module
-      run: ./gradlew :surveysdk:test
+      run: ./gradlew :surveysdk:test --stacktrace
       
     - name: Upload test reports
       if: always()
