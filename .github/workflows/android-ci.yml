@@ -18,21 +18,16 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-    
-    - name: List files in current directory
-      run: ls -la
-    
-    - name: Change to sample directory
-      run: cd sample
+
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
       
-    - name: Run tests
-      run: gradle test
+    - name: Run tests in surveysdk module
+      run: ./gradlew :surveysdk:test
       
     - name: Upload test reports
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: test-reports
-        path: |
-          **/build/reports/tests/
-          **/build/reports/androidTests/
+        path: surveysdk/build/reports/tests/
