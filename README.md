@@ -38,9 +38,9 @@ dependencies {
 
 4. If your app is targeting API level 28 (Android 9.0) or above, please make sure the following `<uses-library>` element description been added inside the `<application>` element of `AndroidManifest.xml` , you can check [the developer documentation](https://developers.google.com/maps/documentation/android-sdk/config#specify_requirement_for_apache_http_legacy_library) for more detail
 ```Xml
-  <uses-library
-      android:name="org.apache.http.legacy"
-      android:required="false" />
+<uses-library
+    android:name="org.apache.http.legacy"
+    android:required="false" />
 ```
 
 ## Usage
@@ -73,12 +73,12 @@ public class PulseInsightsApplication extends Application {
 
 You also need to provide the context of the Activity object for display the survey view or the invite widget
 ```Java
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ...
-        pi.setContext(Context context)
-        ...
-    }
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    pi.setContext(Context context)
+    ...
+}
 ```
 
 After this initial step, you can fetch the PulseInsights object as below:
@@ -97,25 +97,25 @@ pi.setViewName(String viewName);
 For example, you can override the onCreate function or the onActivityResult function on the Activity class:
 
 ```Java
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-        pi.setViewName("cus_MainActivity");
-    }
+    pi.setViewName("cus_MainActivity");
+}
 ```
 
 ```Java
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MainActivity_REQUEST) {
-            String result = data.getExtras().getString("result");
-            if (result.equalsIgnoreCase("BACK_ACTIVITY")) {
-                pi.setViewName("cus_MainActivity");
-            }
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == MainActivity_REQUEST) {
+        String result = data.getExtras().getString("result");
+        if (result.equalsIgnoreCase("BACK_ACTIVITY")) {
+            pi.setViewName("cus_MainActivity");
         }
     }
+}
 ```
 
 ### 3. Survey polling
@@ -154,9 +154,9 @@ You still can integrate the inline surveys by adding the inline survey on the XM
 
 ```xml
 <com.pulseinsights.pisurveylibrary.util.InlineSurveyView
-            android:id="@+id/inline_survey"
-            android:layout_width="match_parent"
-            />
+    android:id="@+id/inline_survey"
+    android:layout_width="match_parent"
+/>
 ```
 
 In this case, you can assign the identifier on the inline view by using the method `setIdentifier`
@@ -243,11 +243,11 @@ It's also possible to configure a callback to be executed when a survey has been
 
 ```Java
 pi.setAnswerListener(new SurveyAnsweredListener() {
-                    @Override
-                    public void onAnswered(String answerId) {
+    @Override
+    public void onAnswered(String answerId) {
 
-                    }
-                });
+    }
+});
 ```
 ### 10. Context data
 
