@@ -84,10 +84,11 @@ project.afterEvaluate {
             deploysdk(MavenPublication) {
                 groupId 'com.pulseinsights'
                 artifactId 'android-sdk'
-                version '2.4.4'
+                version '2.4.5'
 
                 artifact androidSourcesJar
-                artifact(tasks.bundleReleaseAar)
+                //  from components.findByName('release') already contains AAR
+                // artifact(tasks.bundleReleaseAar)
 //                artifact("$buildDir/outputs/aar/surveysdk-release.aar")
 
                 from components.findByName('release')
