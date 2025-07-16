@@ -59,6 +59,12 @@ public class HttpCore {
 
     public String composeRequestUrl(String path, Map<String, String> requestParams) {
         String hostDomain = PreferencesManager.getInstance(context).getServerHost();
+        
+        if (hostDomain == null || hostDomain.isEmpty()) {
+            DebugTool.debugPrintln(context, "HttpCore", "Error: Host URL is not set! Please call setHost() before making API requests.");
+            return null;
+        }
+        
         String paramStr = "?";
         for (String key : requestParams.keySet()) {
             String value = requestParams.get(key);
@@ -85,9 +91,18 @@ public class HttpCore {
 
     public void startRequest(String strReq, String strExt) {
         this.strExtend = strExt;
+        
+        if (strReq == null) {
+            if (jsonGetResult != null) {
+                new Handler(context.getMainLooper()).post(() -> {
+                    jsonGetResult.getResult("error", "-1");
+                });
+            }
+            return;
+        }
+        
         httpRequest = new Thread(new HttpReqThread(strReq));
         httpRequest.start();
-
     }
 
     class RespondHandler extends Handler {

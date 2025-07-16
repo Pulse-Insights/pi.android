@@ -233,6 +233,10 @@ public class PulseInsights {
     private SurveyInlineResult surveyInlineResult;
 
     public void serve() {
+        if (!isHostSet()) {
+            warnHostNotSet("serve");
+            return;
+        }
         LocalData.instant.isSurveyApiRunning = true;
         LocalData.instant.installDays = getAppInstallDays();
         pulseInsightsApi.serve();
@@ -240,6 +244,10 @@ public class PulseInsights {
 
 
     public void setDeviceData(Map<String, String> map) {
+        if (!isHostSet()) {
+            warnHostNotSet("setDeviceData");
+            return;
+        }
         pulseInsightsApi.setDeviceData(map);
     }
 
@@ -263,6 +271,10 @@ public class PulseInsights {
     }
 
     public void present(String surveyId) {
+        if (!isHostSet()) {
+            warnHostNotSet("present");
+            return;
+        }
         LocalData.instant.strCheckingSurveyId = surveyId;
         LocalData.instant.isSurveyApiRunning = true;
         pulseInsightsApi.getSurveyInformation();
@@ -622,4 +634,15 @@ public class PulseInsights {
             }
         }
     };
+
+    private boolean isHostSet() {
+        String host = PreferencesManager.getInstance(context).getServerHost();
+        return host != null && !host.isEmpty();
+    }
+
+    private void warnHostNotSet(String methodName) {
+        String warningMsg = "Warning: Host URL is not set! Please call setHost() before calling " + methodName + "().";
+        DebugTool.debugPrintln(context, "PulseInsights", warningMsg);
+        Toast.makeText(context, warningMsg, Toast.LENGTH_LONG).show();
+    }
 }
