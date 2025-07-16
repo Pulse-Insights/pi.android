@@ -22,82 +22,66 @@ public class FormatSetTool {
     static int TARGET_ID_ITALIC = 1;
     static String[] aryStringPreFix = {"<b>", "<em>"};
     static String[] aryStringPostFix = {"</b>", "</em>"};
-    static int[] aryMarkCount = {0, 0};
-
-    static List<Integer> listRecord = new ArrayList<Integer>();
-
-    private static String getPostFixTag(int onCloseType) {
-        String strRt = "";
-        String strContinuePreFix = "";
-        List<Integer> listAdditional = new ArrayList<Integer>();
-        while (listRecord.size() > 0) {
-            int lastIndex = listRecord.size() - 1;
-            int lastTypeId = listRecord.get(lastIndex);
-            listRecord.remove(lastIndex);
-            strRt += aryStringPostFix[lastTypeId];
-            if (onCloseType == lastTypeId) {
-                break;
-            } else {
-                strContinuePreFix = aryStringPreFix[lastTypeId] + strContinuePreFix;
-                listAdditional.add(lastTypeId);
-            }
-        }
-        if (listAdditional.size() > 0) {
-            Collections.reverse(listAdditional);
-            listRecord.addAll(listAdditional);
-        }
-
-        return strRt;
-    }
 
     public static String transferToHtmlFormat(String strOriString) {
-        String strRtItem = "";
-        listRecord = new ArrayList<Integer>();
-        int tempSum = 0;
-
-        int countMarkBold = countMatch(strOriString, "*");
-        countMarkBold = (countMarkBold > 0) ? ((countMarkBold % 2 == 0)
-                ? countMarkBold : (countMarkBold - 1)) : 0;
-        tempSum += countMarkBold;
-        int countMarkItalic = countMatch(strOriString, "_");
-        countMarkItalic = (countMarkItalic > 0) ? ((countMarkItalic % 2 == 0)
-                ? countMarkItalic : (countMarkItalic - 1)) : 0;
-        tempSum += countMarkItalic;
-
-        aryMarkCount[TARGET_ID_BOLD] = countMarkBold;
-        aryMarkCount[TARGET_ID_ITALIC] = countMarkItalic;
-
-
-        if (tempSum > 0) {
-            char[] aryTemp = strOriString.toCharArray();
-
-            for (char charTemp : aryTemp) {
-                if ((charTemp == '*') || (charTemp == '_')) {
-                    //TODO:Main analysis flow
-                    String strAdded = "";
-                    int targetId = (charTemp == '*') ? TARGET_ID_BOLD : TARGET_ID_ITALIC;
-                    if (aryMarkCount[targetId] > 0) {
-                        if (aryMarkCount[targetId] % 2 == 0) {
-                            strAdded = aryStringPreFix[targetId];
-                            listRecord.add(targetId);
-                        } else {
-                            strAdded = getPostFixTag(targetId);
-                        }
-                        aryMarkCount[targetId]--;
-                    } else {
-                        strAdded = String.valueOf(charTemp);
-                    }
-
-                    strRtItem = strRtItem + strAdded;
-                } else {
-                    strRtItem = strRtItem + String.valueOf(charTemp);
-                }
-            }
-        } else {
-            strRtItem = strOriString;
+        if (strOriString == null || strOriString.isEmpty()) {
+            return strOriString;
         }
 
-        return strRtItem;
+        StringBuilder result = new StringBuilder();
+        boolean inBold = false;
+        int i = 0;
+        
+        while (i < strOriString.length()) {
+            char c = strOriString.charAt(i);
+            
+            if (c == '*') {
+                if (inBold) {
+                    result.append("</b>");
+                    inBold = false;
+                } else {
+                    result.append("<b>");
+                    inBold = true;
+                }
+            } else {
+                result.append(c);
+            }
+            
+            i++;
+        }
+        
+        if (inBold) {
+            result.append("</b>");
+        }
+        
+        String boldProcessed = result.toString();
+        result = new StringBuilder();
+        boolean inItalic = false;
+        i = 0;
+        
+        while (i < boldProcessed.length()) {
+            char c = boldProcessed.charAt(i);
+            
+            if (c == '_') {
+                if (inItalic) {
+                    result.append("</em>");
+                    inItalic = false;
+                } else {
+                    result.append("<em>");
+                    inItalic = true;
+                }
+            } else {
+                result.append(c);
+            }
+            
+            i++;
+        }
+        
+        if (inItalic) {
+            result.append("</em>");
+        }
+        
+        return result.toString();
     }
 
     public static int countMatch(String strSource, String strTarget) {
@@ -110,6 +94,4 @@ public class FormatSetTool {
 
         return rtTmp;
     }
-
-
 }

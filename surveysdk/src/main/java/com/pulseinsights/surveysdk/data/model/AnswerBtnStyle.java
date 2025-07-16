@@ -17,6 +17,9 @@ public class AnswerBtnStyle {
 
     @SerializedName("border-width")
     int borderWidth = -1;
+    
+    @SerializedName("border-radius")
+    int borderRadius = -1;
 
     @SerializedName("font-color")
     String fontColor = null;
@@ -56,6 +59,7 @@ public class AnswerBtnStyle {
         answerBtnTheme.borderColor =
                 new ParseHelper<String>().getObj(borderColor, answerBtnTheme.borderColor);
         answerBtnTheme.borderWidth = borderWidth > -1 ? borderWidth : answerBtnTheme.borderWidth;
+        answerBtnTheme.borderRadius = borderRadius > -1 ? borderRadius : answerBtnTheme.borderRadius;
         answerBtnTheme.fontColor =
                 new ParseHelper<String>().getObj(fontColor, answerBtnTheme.fontColor);
         answerBtnTheme.width = width > -1 ? width : answerBtnTheme.width;

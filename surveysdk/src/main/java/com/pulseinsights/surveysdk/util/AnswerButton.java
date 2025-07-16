@@ -92,9 +92,9 @@ public class AnswerButton extends RelativeLayout {
         }
         if (isOnStatus && horizontalWidth > 0 && !isSingleType) {
             setBackground(LocalData.instant.themeStyles.ansBtn
-                    .getDrawable(LocalData.instant.themeStyles.ansBtn.perRowBackgroundColor));
+                    .getDrawable(context, LocalData.instant.themeStyles.ansBtn.perRowBackgroundColor));
         } else {
-            setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable());
+            setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable(context));
         }
         if (isSingleType && LocalData.instant.themeStyles.radio.hide || horizontalWidth > 0) {
             textLabel.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -197,11 +197,11 @@ public class AnswerButton extends RelativeLayout {
         if (shouldSetSelectedColor) {
             if (isOnStatus) {
                 // Set the selected background color when the button is selected
-                this.setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable(LocalData.instant.themeStyles.ansBtn.selectedBackgroundColor));
+                this.setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable(context, LocalData.instant.themeStyles.ansBtn.selectedBackgroundColor));
                 mainContainer.setBackgroundColor(Color.parseColor(LocalData.instant.themeStyles.ansBtn.selectedBackgroundColor));
             } else {
                 // Set the default background color when the button is not selected
-                this.setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable());
+                this.setBackground(LocalData.instant.themeStyles.ansBtn.getDrawable(context));
                 mainContainer.setBackgroundColor(Color.parseColor(LocalData.instant.themeStyles.ansBtn.backgroundColor));
             }
         }
@@ -217,7 +217,7 @@ public class AnswerButton extends RelativeLayout {
             int action = event.getActionMasked();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    setBackground(LocalData.instant.themeStyles.ansBtn.getPressInDrawable());
+                    setBackground(LocalData.instant.themeStyles.ansBtn.getPressInDrawable(context));
                     LocalData.instant.themeStyles.ansBtn.configTextPressInColor(textLabel);
                     break;
                 case MotionEvent.ACTION_UP:

@@ -14,20 +14,23 @@ public class FontStyleBase {
     @SerializedName("font-color")
     String fontColor = null;
 
+    @SerializedName("font-weight")
+    String fontWeight = null;
+
     String style = null;
     String alignment = null;
 
     public FontThemeBase toTheme(FontThemeBase defaultFontTheme) {
-        FontThemeBase submitBtnTheme = defaultFontTheme;
-        submitBtnTheme.fontSize = fontSize > -1 ? fontSize : submitBtnTheme.fontSize;
-        submitBtnTheme.fontFace =
-                new ParseHelper<String>().getObj(fontFace, submitBtnTheme.fontFace);
-        submitBtnTheme.fontColor =
-                new ParseHelper<String>().getObj(fontColor, submitBtnTheme.fontColor);
-        submitBtnTheme.style =
-                new ParseHelper<String>().getObj(style, submitBtnTheme.style);
-        submitBtnTheme.alignment =
-                new ParseHelper<String>().getObj(alignment, submitBtnTheme.alignment);
-        return submitBtnTheme;
+        FontThemeBase fontTheme = defaultFontTheme;
+        fontTheme.fontSize = fontSize > -1 ? fontSize : fontTheme.fontSize;
+        fontTheme.fontFace =
+                new ParseHelper<String>().getObj(fontFace, fontTheme.fontFace);
+        fontTheme.fontColor =
+                new ParseHelper<String>().getObj(fontColor, fontTheme.fontColor);
+        fontTheme.style =
+                new ParseHelper<String>().getObj(style, fontTheme.style);
+        fontTheme.alignment =
+                new ParseHelper<String>().getObj(alignment, fontTheme.alignment);
+        return fontTheme;
     }
 }

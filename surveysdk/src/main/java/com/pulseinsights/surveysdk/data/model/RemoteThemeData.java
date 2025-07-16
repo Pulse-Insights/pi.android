@@ -46,6 +46,9 @@ public class RemoteThemeData {
     public QuestionErrorTextStyle questionError = null;
 
     @SerializedName("answers-helper")
+    public AnswersHelperStyle answersHelper = null;
+
+    @SerializedName("helper")
     public HelperStyle helper = null;
 
     @SerializedName("survey-image")

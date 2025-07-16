@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -119,10 +120,11 @@ public class SurveyMainView extends RelativeLayout {
         afterHelperText = layout.findViewById(R.id.after_helper);
         LocalData.instant.themeStyles.mediumFont.configText(afterHelperText);
         afterHelperContainer = layout.findViewById(R.id.after_helper_container);
+        LocalData.instant.themeStyles.helper.applyMargin(context, afterHelperContainer);
 
         beforeAnswerContainer = layout.findViewById(R.id.beforeAnswerContainer);
         afterAnswerContainer = layout.findViewById(R.id.afterAnswerContainer);
-        LocalData.instant.themeStyles.helper.applyMargin(context, afterHelperContainer);
+
         titleContainer.setVisibility(GONE);
         beforeHelperContainer.setVisibility(GONE);
         beforeAnswerContainer.setVisibility(GONE);
@@ -230,7 +232,8 @@ public class SurveyMainView extends RelativeLayout {
     public void openThanksArea(String strThanksText) {
         hideAllArea();
         piThanksArea.setVisibility(VISIBLE);
-        FormatSetTool.setTextByHtml(txtThanksMsg, strThanksText);
+        String formattedText = FormatSetTool.transferToHtmlFormat(strThanksText);
+        txtThanksMsg.setText(Html.fromHtml(formattedText));
         final CountDownTimer webViewScanTimer = new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long val) {
@@ -497,18 +500,18 @@ public class SurveyMainView extends RelativeLayout {
 
     void setupAnswerHelper(List<String> helperList, LinearLayout helperContainer) {
         helperContainer.removeAllViews();
-        LocalData.instant.themeStyles.helper.applyPadding(context, helperContainer);
+        LocalData.instant.themeStyles.answersHelper.applyPadding(context, helperContainer);
         for (int i = 0; i < helperList.size(); i++) {
             String afterAnswer = helperList.get(i);
             TextView tv = new TextView(context);
             LocalData.instant.themeStyles.mediumFont.configText(tv);
             tv.setText(afterAnswer);
-            String fontColor = LocalData.instant.themeStyles.helper.fontColor;
+            String fontColor = LocalData.instant.themeStyles.answersHelper.fontColor;
             if (!TextUtils.isEmpty(fontColor)) {
                 tv.setTextColor(Color.parseColor(fontColor));
             }
             if (helperList.size() == 1) {
-                String remoteGravity = LocalData.instant.themeStyles.helper.gravity;
+                String remoteGravity = LocalData.instant.themeStyles.answersHelper.gravity;
                 switch (remoteGravity) {
                     case "left":
                     case "start":

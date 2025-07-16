@@ -22,6 +22,7 @@ public class ThemeStyles {
     public ResponseImageTheme ansImg = new ResponseImageTheme();
     public PollBarTheme pollBar = new PollBarTheme();
     public HelperTheme helper = new HelperTheme();
+    public AnswersHelperTheme answersHelper = new AnswersHelperTheme();
 
     public void updateAssignTheme(RemoteThemeData fetchStyle) {
         widget.applyNewStyle(
@@ -62,6 +63,8 @@ public class ThemeStyles {
                 fetchStyle.pollBar != null ? fetchStyle.pollBar.toTheme() : new PollBarTheme());
         helper.applyNewStyle(
                 fetchStyle.helper != null ? fetchStyle.helper.toTheme() : new HelperTheme());
+        answersHelper.applyNewStyle(
+                fetchStyle.answersHelper != null ? fetchStyle.answersHelper.toTheme() : new AnswersHelperTheme());
     }
 
     public boolean hideLogo = false;
